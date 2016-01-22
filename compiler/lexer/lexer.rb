@@ -42,6 +42,7 @@ class Lexer
             current_column += rule.matched_portion.length
           end
           any_match = true
+          break
         end
       end
       raise LexError.new(current_line, current_column, input.split(/\n/).first[0..9]) unless any_match

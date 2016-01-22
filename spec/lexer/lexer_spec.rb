@@ -21,6 +21,17 @@ describe Lexer do
         expect(first_token.identifier).to eq 'bar'
       end
 
+      it "matches on first come first serve basis if multiple rules will match" do
+        allow_any_instance_of(Lexer).to receive(:token_rules).and_return [
+          TokenRule.new(EndToken, /end/),
+          TokenRule.new(IdentifierToken, /end/),
+        ]
+        tokens = lexer.lex("endend")
+        tokens.each do |token|
+          expect(token).to be_kind_of EndToken
+        end
+      end
+
       it "continues matching TokenRule s until the input is depleted" do
         tokens = lexer.lex("foobarbar")
         expect(tokens.count).to eq 3
