@@ -12,7 +12,7 @@ module Compiler
       file.close
     end
     tokens = Lexer.new.lex(code)
-    print tokens.map!(&:to_s).join(" ") if tokens
+    print tokens.map!(&:to_s).join(" ") + "\n" if tokens
   end
 end
 
