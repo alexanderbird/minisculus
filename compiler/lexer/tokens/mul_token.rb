@@ -1,0 +1,2 @@
+class MulToken < Token
+end

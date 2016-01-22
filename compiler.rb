@@ -1,3 +1,5 @@
+require './autoload'
+
 module Compiler
   def self.compile filename
     file = File.open(filename)
@@ -9,7 +11,8 @@ module Compiler
     ensure
       file.close
     end
-    print code
+    tokens = Lexer.new.lex(code)
+    print tokens
   end
 end
 

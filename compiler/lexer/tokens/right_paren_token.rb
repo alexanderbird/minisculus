@@ -1,0 +1,2 @@
+class RightParenToken < Token
+end

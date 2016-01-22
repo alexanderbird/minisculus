@@ -1,15 +1,19 @@
 describe TokenRule do
   context "#initialize" do
     it "throws an error if the first argument isn't a token class" do
-      expect{TokenRule.new(:symbol, //)}.to raise_error(ArgumentError, /[Ee]xpected Token, got Symbol/)
+      expect{TokenRule.new(:symbol, /regexp/)}.to raise_error(ArgumentError, /[Ee]xpected Token, got Symbol/)
     end
 
     it "throws an error if the second argument isn't a regular expression" do
       expect{TokenRule.new(Token, 'string')}.to raise_error(ArgumentError, /[Ee]xpected Regexp, got String/)
     end
 
+    it "throws an error if the second argument is an empty regular expression" do
+      expect{TokenRule.new(Token, //)}.to raise_error(ArgumentError, /[Ee]mpty regexp not permitted/)
+    end
+
     it "is happy if a class and a regex are provided" do
-      expect{TokenRule.new(Token, //)}.to_not raise_error
+      expect{TokenRule.new(Token, /regexp/)}.to_not raise_error
     end
   end
 
@@ -45,6 +49,12 @@ describe TokenRule do
       rule = TokenRule.new(Token, /foo/)
       rule.attempt_tokenize "foobar"
       expect(rule.token).to eq @token
+    end
+
+    it "gives access to the matched portion if a match was made" do
+      rule = TokenRule.new(Token, /foo/)
+      rule.attempt_tokenize "foobar"
+      expect(rule.matched_portion).to eq 'foo'
     end
   end
 end

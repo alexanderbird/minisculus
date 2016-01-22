@@ -1,0 +1,2 @@
+class SubToken < Token
+end

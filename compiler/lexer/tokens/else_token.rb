@@ -1,0 +1,2 @@
+class ElseToken < Token
+end

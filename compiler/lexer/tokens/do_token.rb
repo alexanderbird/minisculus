@@ -1,0 +1,2 @@
+class DoToken < Token
+end

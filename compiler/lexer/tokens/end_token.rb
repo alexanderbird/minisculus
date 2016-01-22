@@ -1,0 +1,2 @@
+class EndToken < Token
+end

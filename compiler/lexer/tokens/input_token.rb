@@ -1,0 +1,2 @@
+class InputToken < Token
+end

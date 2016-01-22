@@ -1,0 +1,2 @@
+class BeginToken < Token
+end

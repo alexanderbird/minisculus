@@ -1,0 +1,2 @@
+class AddToken < Token
+end

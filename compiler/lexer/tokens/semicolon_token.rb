@@ -1,0 +1,2 @@
+class SemicolonToken < Token
+end

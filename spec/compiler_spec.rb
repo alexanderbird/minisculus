@@ -4,7 +4,8 @@ describe Compiler do
       @file_double = double(File)
       @filename = 'foobar.baz'
       allow(File).to receive(:open).with(@filename).and_return(@file_double)
-      allow(@file_double).to receive(:read)
+      allow(@file_double).to receive(:read).and_return ''
+      allow_any_instance_of(Lexer).to receive(:lex)
       # make sure it's always always always closed
       expect(@file_double).to receive(:close)
     end
@@ -21,9 +22,11 @@ describe Compiler do
     end
 
     it "prints the result" do
-      content = "Some\nmulti\nline\nstuff"
+      content = "begin\nend"
       allow(@file_double).to receive(:read).and_return content 
-      expect{ Compiler.compile @filename }.to output.to_stdout
+      tokens = [:foo, :bar]
+      allow_any_instance_of(Lexer).to receive(:lex).and_return tokens
+      expect{ Compiler.compile @filename }.to output(tokens.to_s).to_stdout
     end
   end
 end

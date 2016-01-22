@@ -1,0 +1,2 @@
+class NewlineNonToken < NonToken
+end

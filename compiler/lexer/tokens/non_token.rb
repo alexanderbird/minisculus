@@ -1,0 +1,2 @@
+class NonToken < Token
+end

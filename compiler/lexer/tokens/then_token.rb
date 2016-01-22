@@ -1,0 +1,2 @@
+class ThenToken < Token
+end
