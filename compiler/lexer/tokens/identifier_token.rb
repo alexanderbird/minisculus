@@ -4,4 +4,8 @@ class IdentifierToken < Token
   end
 
   attr_accessor :identifier
+
+  def to_s
+    "ID(#{self.identifier})"
+  end
 end

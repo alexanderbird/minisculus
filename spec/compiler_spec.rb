@@ -11,7 +11,9 @@ describe Compiler do
     end
 
     it "lexes from a file" do
-      expect(@file_double).to receive(:read)
+      content = "begin\nend"
+      allow(@file_double).to receive(:read).and_return content 
+      expect_any_instance_of(Lexer).to receive(:lex).with(content).and_return []
       Compiler.compile @filename
     end
 
@@ -26,7 +28,7 @@ describe Compiler do
       allow(@file_double).to receive(:read).and_return content 
       tokens = [:foo, :bar]
       allow_any_instance_of(Lexer).to receive(:lex).and_return tokens
-      expect{ Compiler.compile @filename }.to output(tokens.to_s).to_stdout
+      expect{ Compiler.compile @filename }.to output("foo bar").to_stdout
     end
   end
 end

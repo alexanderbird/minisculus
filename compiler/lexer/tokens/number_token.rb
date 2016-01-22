@@ -4,4 +4,8 @@ class NumberToken < Token
   end
 
   attr_accessor :value
+
+  def to_s
+    "NUM(#{self.value})"
+  end
 end
