@@ -50,7 +50,7 @@
 # Compiler Usage
 *run all commands from project root*
 ## Prerequisites
-* Ruby 2.x
+* Ruby 2.x (in `/usr/local/bin/ruby`)
 * bundler gem
 
 ## Install
@@ -60,7 +60,7 @@
 `rspec`
 
 ## Run
-`ruby compiler.rb infile > outfile`
+`./mnc infile > outfile`
 
 
 # Compiler Architecture
