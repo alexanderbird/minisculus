@@ -16,7 +16,3 @@ module Compiler
     print tokens.map!(&:to_s).join(" ") + "\n" if tokens
   end
 end
-
-if __FILE__ == $0
-  Compiler.compile ARGV.first
-end
