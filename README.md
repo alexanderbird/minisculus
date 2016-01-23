@@ -62,6 +62,8 @@
 ## Run
 `./mnc infile > outfile`
 
+Or, to compile every file in `sample_code`: `for file in sample_code/src/sample*.m-; do ./mnc $file > sample_code/bin/$(basename $file)c 2>&1; done`
+
 
 # Compiler Architecture
 ## Compiler Module

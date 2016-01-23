@@ -1,0 +1,10 @@
+ID(x)
+ASSIGN
+ID(a)
+ADD
+ID(b)
+MUL
+ID(c)
+ID(print)
+ID(y)
+SEMICOLON

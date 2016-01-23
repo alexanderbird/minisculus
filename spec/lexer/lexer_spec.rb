@@ -69,7 +69,7 @@ describe Lexer do
     end
 
     context "tokenizing" do
-      {
+      keywords = {
         IfToken: 'if',
         ThenToken: 'then',
         WhileToken: 'while',
@@ -78,7 +78,10 @@ describe Lexer do
         ElseToken: 'else',
         BeginToken: 'begin',
         EndToken: 'end',
-        WriteToken: 'write',
+        WriteToken: 'write'
+      }
+
+      keywords.merge({
         AddToken: '+',
         AssignToken: ':=',
         SubToken: '-',
@@ -87,10 +90,24 @@ describe Lexer do
         LeftParenToken: '(',
         RightParenToken: ')',
         SemicolonToken: ';'
-      }.each do |token_class, source_code|
+      }).each do |token_class, source_code|
         it "lexes #{token_class.to_s}" do
           token = lexer.lex(source_code).first
           expect(token).to be_kind_of Kernel.const_get(token_class)
+        end
+      end
+
+      keywords.each do |token_class, source_code|
+        it "does not treat identifiers starting with '#{source_code}' as a #{token_class}" do
+          token = lexer.lex("#{source_code}a").first
+          expect(token).to be_kind_of IdentifierToken
+          expect(token.identifier).to eq "#{source_code}a"
+        end
+
+        it "does not treat identifiers ending with '#{source_code}' as a #{token_class}" do
+          token = lexer.lex("a#{source_code}").first
+          expect(token).to be_kind_of IdentifierToken
+          expect(token.identifier).to eq "a#{source_code}"
         end
       end
 

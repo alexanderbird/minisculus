@@ -1,0 +1,3 @@
+/Users/Alex/Code/cpsc411/compiler/lexer/lexer.rb:48:in `lex': Unknown token on line 10, column 10 (`|v?w!)`...) (LexError)
+	from /Users/Alex/Code/cpsc411/compiler.rb:15:in `compile'
+	from ./mnc:4:in `<main>'

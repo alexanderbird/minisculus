@@ -37,7 +37,7 @@ describe Compiler do
       allow(@file_double).to receive(:read).and_return content 
       tokens = [:foo, :bar]
       allow_any_instance_of(Lexer).to receive(:lex).and_return tokens
-      expect{ Compiler.compile @filename }.to output("foo bar\n").to_stdout
+      expect{ Compiler.compile @filename }.to output("foo\nbar\n").to_stdout
     end
   end
 end
