@@ -47,6 +47,22 @@
 | ")"     | RPAR    |
 | ";"     | SEMICOLON |
 
+# Compiler Usage
+*run all commands from project root*
+## Prerequisites
+* Ruby 2.x
+* bundler gem
+
+## Install
+`bundle`
+
+## Test
+`rspec`
+
+## Run
+`ruby compiler.rb infile > outfile`
+
+
 # Compiler Architecture
 ## Compiler Module
 Reads from file, acts as foreman of the compilation, and outputs results

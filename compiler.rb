@@ -11,7 +11,8 @@ module Compiler
     ensure
       file.close
     end
-    tokens = Lexer.new.lex(code)
+    processed_code = Preprocessor.new.process code
+    tokens = Lexer.new.lex processed_code
     print tokens.map!(&:to_s).join(" ") + "\n" if tokens
   end
 end
