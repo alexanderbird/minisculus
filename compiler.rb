@@ -13,6 +13,6 @@ module Compiler
     end
     processed_code = Preprocessor.new.process code
     tokens = Lexer.new.lex processed_code
-    print tokens.map!(&:to_s).join(" ") + "\n" if tokens
+    print tokens.map!(&:to_s).join("\n") + "\n" if tokens
   end
 end
