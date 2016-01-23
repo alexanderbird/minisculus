@@ -7,7 +7,13 @@ class PreprocessorRule
 
   def apply_to input
     @matched = !!@pattern.match(input)
-    input.gsub(@pattern, @replacement)
+    if @replacement.respond_to? :apply_to
+      input.gsub @pattern do |match|
+        @replacement.apply_to match
+      end
+    else
+      input.gsub @pattern, @replacement.to_s
+    end
   end
 
   def apply_to! input

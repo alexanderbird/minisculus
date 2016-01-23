@@ -33,6 +33,23 @@ describe PreprocessorRule do
       rule = PreprocessorRule.new(/a/, 'A')
       expect(rule.apply_to("apples and bananas")).to eq "Apples And bAnAnAs"
     end
+
+    it "uses the to_s method for replacement in case it isn't actually a string" do
+      replacement = double("Not A String", to_s: 'STRINGIFIED')
+      rule = PreprocessorRule.new(/a/, replacement)
+      expect(rule.apply_to('abc')).to eq 'STRINGIFIEDbc'
+    end
+
+    it "replaces all occurances of the pattern with the result of replacement.apply_to if replacement.respond_to? :apply_to" do
+      sub_rule = double("Sub-PreprocessorRule", apply_to: 'SWAP', to_s: 'FAIL')
+      rule = PreprocessorRule.new(/cat/, sub_rule)
+      expect(rule.apply_to("cats and dogs and cats")).to eq "SWAPs and dogs and SWAPs"
+    end
+
+    it "recurses well with real PreprocessorRules as replacement objects" do
+      rule = PreprocessorRule.new(/dog food is good/, PreprocessorRule.new(/foo.*ood/, PreprocessorRule.new(/o/, ''))) 
+      expect(rule.apply_to("you know dog food is good")).to eq "you know dog fd is gd"
+    end
   end
 
   context "#apply_to!" do

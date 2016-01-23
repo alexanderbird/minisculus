@@ -36,5 +36,50 @@ describe Preprocessor do
       ]
       expect(preprocessor.process 'a').to eq 'PASS'
     end
+
+    it "fails gracefully if the rules are inexhaustible" do
+      allow_any_instance_of(Preprocessor).to receive(:preprocessing_rules).and_return [
+        PreprocessorRule.new(/a/, 'a')
+      ]
+      expect{preprocessor.process 'a'}.to raise_error /PreprocessorRule.*?a.*?a.*? applied 50 times, will it ever be satisfied\?/
+    end
+  end
+
+  context "#preprocessing_rules" do
+    it "strips multi-line comments" do
+      input  = "/foo\nb*ar\nfoo/*\n\n start\n\n\nbad1\nbad2\nbad3\nend */baz\nquux"
+      output = "/foo\nb*ar\nfoo  \n\n      \n\n\n    \n    \n    \n      baz\nquux".gsub(/ /, '')
+      expect(preprocessor.process(input)).to eq output
+    end
+
+    it "does not require that multi line comment delimiters are alone on the line" do
+      input  = "good/*bad\nbad*/good"
+      output = "good     \n     good".gsub(/ /, '')
+      expect(preprocessor.process(input)).to eq output
+    end
+
+    it "properly handles inline multi-line style comments" do
+      input  = "good/*bad*/good"
+      output = "good       good".gsub(/ /, '')
+      expect(preprocessor.process(input)).to eq output
+    end
+
+    it "removes single line comments first" do
+      input  = "% comment /*\nfoo\n*/"
+      output = "            \nfoo\n*/".gsub(/ /, '')
+      expect(preprocessor.process(input)).to eq output
+    end
+
+    it "properly handles nested multi-line comments that are on one line" do
+      input  = "start/*first/*second*/foo/*third*/first*/end"
+      output = "start                                    end".gsub(/ /, '')
+      expect(preprocessor.process(input)).to eq output
+    end
+
+    it "properly handles nested multi-line comments that are on multiple lines" do
+      input  = "start\n/*first\n/*second\n*/foo\n/*third\n*/first\n*/end"
+      output = "start\n       \n        \n     \n       \n       \n  end".gsub(/ /, '')
+      expect(preprocessor.process(input)).to eq output
+    end
   end
 end
