@@ -2,25 +2,26 @@
 [Assignment documentation](http://pages.cpsc.ucalgary.ca/~robin/class/411/Assignments/2016/minisculus/ass1and2.html)
 
 ## Usage
-*run all commands from project root*
 ### Prerequisites
 * [Ruby 2.x](https://www.ruby-lang.org/en/documentation/installation/) (in `/usr/local/bin/ruby`)
  * Note: if you use a different install directory, see note below the 'Run' section below
 * [bundler gem](http://bundler.io/)
+* all commands to be executed from project root
 
-### Install
+### Install Dependancies (libraries)
 `bundle install`
 
-### Test
+### Test (optional)
 `rspec`
 
+To view detailed documentation, run `rspec --format documentation`
+
 ### Run
-`./lexer infile > outfile`
-
-Or, to compile every file in `sample_code`: `for file in sample_code/src/sample*.m-; do ./lexer $file > sample_code/bin/$(basename $file)c 2>&1; done`
-
-###### With Ruby installed in at a different path
-use `/path/to/ruby ./lexer` instead of `./lexer`
+* basic usage: `./lexer infile.m-`
+* save output to file: `./lexer infile.m- > outfile.m-c`
+* all sample files: `for file in sample_code/src/sample*.m-; do ./lexer $file > sample_code/bin/$(basename $file)c 2>&1; done`
+* with ruby installed at a different path: `/path/to/ruby ./lexer` instead of `./lexer` 
+ * Use the above if you get an error like the following: `-bash: ./lexer: /usr/local/bin/ruby: bad interpreter: No such file or directory`
 
 ## Language Information
 ### Grammar
