@@ -11,9 +11,9 @@
 * Comments are handled by a preprocessor that removes any commented characters other than newlines (so that the line count is preserved)
 
 ## Testing
-### Acceptance Testing
-* *sample_code/src/* contains test input files
-* *sample_code/bin/* contains test output files
+### End-to-end Testing
+* [spec/manual_test_cases/src/*](spec/manual_test_cases/src) contains test input files
+* [spec/manual_test_cases/bin/*](spec/manual_test_cases/bin) contains test output files
 * sample 1-6 and 9 were provided by the instructor
 * sample 10-15 were written by me
 
