@@ -1,4 +1,0 @@
-#!/usr/local/bin/ruby
-
-require './compiler'
-Compiler.compile ARGV.first

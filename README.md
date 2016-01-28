@@ -1,23 +1,33 @@
 # Minisculus Compiler
 [Assignment documentation](http://pages.cpsc.ucalgary.ca/~robin/class/411/Assignments/2016/minisculus/ass1and2.html)
 
-## Usage
-### Quick Start
+## Quick Start
 1. Install prerequisites ([Ruby 2.x](https://www.ruby-lang.org/en/documentation/installation/) and [bundler](http://bundler.io/))
 2. Install dependancies (`bundle install`)
 3. Test (optional) (`rspec`)
 4. Run `./lexer infile.m-`
 
-### Other Run Options
-* basic usage: `./lexer infile.m-`
-* save output to file: `./lexer infile.m- > outfile.m-c`
-* lex all sample files: `for file in sample_code/src/sample*.m-; do ./lexer $file > sample_code/bin/$(basename $file)c 2>&1; done`
-* if you installed ruby at a different path than */urs/local/bin/ruby*: `/path/to/ruby ./lexer infile.m-`
- * This is the way to get around the following error: `-bash: ./lexer: /usr/local/bin/ruby: bad interpreter: No such file or directory`
-
 ## Implementation Notes
 * Comments are handled by a preprocessor that removes any commented characters other than newlines (so that the line count is preserved)
-* For more details, run the test suite with the documentation flag: `rspec --format documentation`
+
+## Testing
+### Acceptance Testing
+* *sample_code/src/* contains test input files
+* *sample_code/bin/* contains test output files
+* sample 1-6 and 9 were provided by the instructor
+* sample 10-16 were written by me
+
+### Unit Testing
+* unit tests found in *spec/*
+* for a detailed list of unit test cases, run `rspec --format documentation` (or view the results in *doc/unit_test_list.txt*)
+  * The key set of tests are for the lex method of the Lexer class (found under Lexer#lex in the unit_test_list)
+* As a very rough measure of coverage, for the approximately 325 lines of lexer code that I have written, I have approximately 400 lines of unit tests
+
+## Alternate Usage
+* save output to file: `./lexer infile.m- > outfile.m-c`
+* lex all sample files: `for file in spec/manual_test_cases/src/sample*.m-; do ./lexer $file > spec/manual_test_cases/bin/$(basename $file)c 2>&1; done`
+* if you installed ruby at a different path than */urs/local/bin/ruby*: `/path/to/ruby ./lexer infile.m-`
+ * This is the way to get around the following error: `-bash: ./lexer: /usr/local/bin/ruby: bad interpreter: No such file or directory`
 
 ## Language Information
 ### Grammar

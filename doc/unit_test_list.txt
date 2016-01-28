@@ -1,0 +1,133 @@
+
+Compiler
+  #compile
+
+    lexes from a file
+
+    calls the preprocessor first
+    closes the file if the read operation fails
+    prints the result
+
+Lexer
+  #lex
+    basic mechanics
+      returns an empty list when given an empty string as input
+      attempts to match each TokenRule to the input
+      matches on first come first serve basis if multiple rules will match
+      continues matching TokenRule s until the input is depleted
+      throws a lexer error if no TokenRule s match
+      tells you the line and column number of the lex error when it's on the first line
+      tells you the line number of the lex error when it's on subsequent lines
+      tells you the column number of the lex error when it's on a later column
+      tells you the position of the lex error
+      gives you a 10 character hint when you get a lexer error on a long line
+      gives you a shorter character hing when you get a lexer error on a line less than 10 characters
+      stores the line and column in the token
+    tokenizing
+      lexes IfToken
+      lexes ThenToken
+      lexes WhileToken
+      lexes DoToken
+      lexes InputToken
+      lexes ElseToken
+      lexes BeginToken
+      lexes EndToken
+      lexes WriteToken
+      lexes AddToken
+      lexes AssignToken
+      lexes SubToken
+      lexes MulToken
+      lexes DivToken
+      lexes LeftParenToken
+      lexes RightParenToken
+      lexes SemicolonToken
+      does not treat identifiers starting with 'if' as a IfToken
+      does not treat identifiers ending with 'if' as a IfToken
+      does not treat identifiers starting with 'then' as a ThenToken
+      does not treat identifiers ending with 'then' as a ThenToken
+      does not treat identifiers starting with 'while' as a WhileToken
+      does not treat identifiers ending with 'while' as a WhileToken
+      does not treat identifiers starting with 'do' as a DoToken
+      does not treat identifiers ending with 'do' as a DoToken
+      does not treat identifiers starting with 'input' as a InputToken
+      does not treat identifiers ending with 'input' as a InputToken
+      does not treat identifiers starting with 'else' as a ElseToken
+      does not treat identifiers ending with 'else' as a ElseToken
+      does not treat identifiers starting with 'begin' as a BeginToken
+      does not treat identifiers ending with 'begin' as a BeginToken
+      does not treat identifiers starting with 'end' as a EndToken
+      does not treat identifiers ending with 'end' as a EndToken
+      does not treat identifiers starting with 'write' as a WriteToken
+      does not treat identifiers ending with 'write' as a WriteToken
+      handles spaces and newlines
+      handles identifier tokens
+      handles number tokens
+
+TokenRule
+  #initialize
+    throws an error if the first argument isn't a token class
+    throws an error if the second argument isn't a regular expression
+    throws an error if the second argument is an empty regular expression
+    is happy if a class and a regex are provided
+  #attempt_tokenize
+    returns false if the pattern doesn't match
+    returns false if the pattern doesn't match the start of the string
+    returns true if the pattern matches the start of the string
+    returns true if the pattern matches the start of a longer string
+    gives access to the remainder of the string if a match was made
+    gives access to the token if a match was made
+    gives access to the matched portion if a match was made
+
+IdentifierToken
+  is a token
+  stores the identifier
+
+Token
+  accepts a string in the constructor
+  passes the string argument to be passed to #parse_matched_string
+  #location=
+    accepts line and column
+  #to_s
+    uses the name method in the to_s
+    defaults to the name 'TOKEN' with no empty parens
+    adds a the printing_parameters in a comma sepparated list
+
+PreprocessorRule
+  #initialize and accessors
+    allows you to set the pattern in the constructor
+    allows you to set the replacement in the constructor
+    does not let you set the regexp after construction
+    does not let you set the replacement after construction
+  #apply_to
+    returns the input if the pattern doesn't match
+    replaces all occurances of the pattern with the replacement and returns that string
+    uses the to_s method for replacement in case it isn't actually a string
+    replaces all occurances of the pattern with the result of replacement.apply_to if replacement.respond_to? :apply_to
+    recurses well with real PreprocessorRules as replacement objects
+  #apply_to!
+    changes the input string
+  matched?
+    is false if no match has been attempted
+    is false if no match was made
+    is true if a match was made
+    is true when there are multiple matches
+    is false when there is a long unmatched string
+
+Preprocessor
+  #process
+    accepts and returns text
+    returns the input if no PreprocessorRules match ever
+    attempts to apply the PreprocessorRules
+    applies the rules until no more can be applied
+    restarts from the beginning once a rule matches, so that it respects the rule order
+    fails gracefully if the rules are inexhaustible
+  #preprocessing_rules
+    strips multi-line comments
+    does not require that multi line comment delimiters are alone on the line
+    properly handles inline multi-line style comments
+    removes single line comments first
+    properly handles nested multi-line comments that are on one line
+    properly handles nested multi-line comments that are on multiple lines
+
+Finished in 0.07884 seconds (files took 0.50462 seconds to load)
+100 examples, 0 failures

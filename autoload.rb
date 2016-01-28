@@ -1,4 +1,4 @@
-autoload :Compiler, "./compiler.rb"
+autoload :Compiler, "./compiler/compiler.rb"
 
 Dir.glob("compiler/**/*.rb").each do |file|
   klass = file.match("/([a-z][a-z0-9_]+).rb")[1]

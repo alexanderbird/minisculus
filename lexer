@@ -1,1 +1,4 @@
-mnc
+#!/usr/local/bin/ruby
+
+require './compiler/compiler.rb'
+Compiler.compile ARGV.first
