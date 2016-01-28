@@ -63,7 +63,7 @@ describe Lexer do
         expect{lexer.lex("foobarfoox-included not included")}.to raise_error(LexError, /`x-included`/)
       end
       
-      it "gives you a shorter character hing when you get a lexer error on a line less than 10 characters" do
+      it "gives you a shorter character hint when you get a lexer error on a line less than 10 characters" do
         expect{lexer.lex("foobarfoox-short\nnot included")}.to raise_error(LexError, /`x-short`/)
       end
 

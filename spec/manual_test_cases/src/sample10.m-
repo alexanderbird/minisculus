@@ -1,0 +1,12 @@
+/*
+  Nested parentheses
+*/
+
+begin
+  ((((((((((
+   (((((((
+      5 + 3
+          ))))/* comment */))))))
+           )))))))
+         
+end

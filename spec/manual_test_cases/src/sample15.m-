@@ -1,0 +1,9 @@
+/* 
+ * Based on the language specification
+ * numbers can only be positive 
+ */
+
+positive  := 1   % ok
+zero      := 0   % ok
+negative  := -1  % interprets as SUB NUM(1) rather than NUM(-1)
+

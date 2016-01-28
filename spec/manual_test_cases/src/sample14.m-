@@ -1,0 +1,9 @@
+/* 
+ * Based on the language specification
+ * identifiers follow the pattern: {alpha}[{digit}{alpha}]*
+ * and thus *are* allowed to be CamelCase
+ */
+
+begin
+  FooBar % no error
+end

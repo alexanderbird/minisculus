@@ -15,7 +15,7 @@
 * *sample_code/src/* contains test input files
 * *sample_code/bin/* contains test output files
 * sample 1-6 and 9 were provided by the instructor
-* sample 10-16 were written by me
+* sample 10-15 were written by me
 
 ### Unit Testing
 * unit tests found in *spec/*

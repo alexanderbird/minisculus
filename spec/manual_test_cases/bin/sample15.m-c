@@ -1,0 +1,10 @@
+ID(positive)
+ASSIGN
+NUM(1)
+ID(zero)
+ASSIGN
+NUM(0)
+ID(negative)
+ASSIGN
+SUB
+NUM(1)
