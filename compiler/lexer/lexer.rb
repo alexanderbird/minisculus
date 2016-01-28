@@ -33,6 +33,7 @@ class Lexer
       any_match = false
       self.token_rules.each do |rule|
         if rule.attempt_tokenize input
+          rule.token.location = current_line, current_column
           tokens << rule.token unless rule.token.kind_of? NonToken
           input = rule.remainder
           if rule.token.kind_of? NewlineNonToken

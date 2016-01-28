@@ -33,7 +33,7 @@ path = File.dirname(__FILE__)
 	File.open("#{path}/#{filename}.rb", 'w') do |file| 
     file.write("#WARNING: Auto-generated file. To edit, edit and run #{__FILE__}\n\n")
     file.write("class #{klass.to_s} < Token\n") 
-    file.write("  def to_s\n")
+    file.write("  def name\n")
     file.write("    \"#{name}\"\n")
     file.write("  end\n")
     file.write("end\n")

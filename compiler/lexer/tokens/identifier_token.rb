@@ -5,7 +5,11 @@ class IdentifierToken < Token
 
   attr_accessor :identifier
 
-  def to_s
-    "ID(#{self.identifier})"
+  def name
+    "ID"
+  end
+
+  def printing_parameters
+    super + [self.identifier]
   end
 end

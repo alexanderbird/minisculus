@@ -66,6 +66,12 @@ describe Lexer do
       it "gives you a shorter character hing when you get a lexer error on a line less than 10 characters" do
         expect{lexer.lex("foobarfoox-short\nnot included")}.to raise_error(LexError, /`x-short`/)
       end
+
+      it "stores the line and column in the token" do
+        bar_token = lexer.lex("\n\nfoobar").last
+        expect(bar_token.line).to eq 3
+        expect(bar_token.column).to eq 4
+      end
     end
 
     context "tokenizing" do

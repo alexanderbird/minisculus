@@ -5,7 +5,11 @@ class NumberToken < Token
 
   attr_accessor :value
 
-  def to_s
-    "NUM(#{self.value})"
+  def name
+    "NUM"
+  end
+
+  def printing_parameters
+    super + [self.value]
   end
 end
