@@ -39,14 +39,16 @@
                 | ID ASSIGN expr
                 | WRITE expr
                 | BEGIN stmtlist END. 
-    stmtlist -> stmtlist stmt SEMICOLON
+    stmtlist -> stmt SEMICOLON stmtlist
                 |. 
-    expr -> expr addop term 
-                | term. 
+    expr -> term expr'.
+    expr' -> addop term expr'
+                |.
     addop -> ADD
                 | SUB. 
-    term -> term mulop factor 
-                | factor. 
+    term -> factor term'.
+    term' -> mulop factor term'
+                |.
     mulop -> MUL
                 | DIV. 
     factor -> LPAR expr RPAR
