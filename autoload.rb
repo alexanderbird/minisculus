@@ -6,3 +6,6 @@ Dir.glob("compiler/**/*.rb").each do |file|
 
   autoload klass.to_sym, "./#{file}"
 end
+
+BoilerplateManager.generate_simple_token_classes
+

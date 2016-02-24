@@ -105,4 +105,3 @@ Knows how to interpret the string that was matched to create the token. For exam
 * `spec` directory contains all the unit tests
 * `Gemfile` contains the dependancy list to be used with bundler tool
 * `sample_code` contains some sample minisculus code to be parsed
-* `compiler/lexer/tokens/.generate_simple_token_classes.rb` does what the file name says
