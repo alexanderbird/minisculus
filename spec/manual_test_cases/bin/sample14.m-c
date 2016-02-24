@@ -1,1 +1,6 @@
-ParseError: Line 8, column 3: Expected Terminal(EndToken), got ID(FooBar)
+BEGIN
+ID(FooBar)
+ASSIGN
+NUM(2)
+SEMICOLON
+END

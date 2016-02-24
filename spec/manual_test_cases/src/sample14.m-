@@ -5,5 +5,5 @@
  */
 
 begin
-  FooBar % no error
+  FooBar := 2; % no error
 end

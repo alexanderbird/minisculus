@@ -79,5 +79,50 @@ describe ProductionSet do
       tokens << EndToken.new("end")
       expect{@production_set.execute}.to_not raise_error
     end
+
+    it "handles begin statement end blocks correctly" do
+      grammar = Grammar.new({
+        start: { productions: [
+          [IdentifierToken, AssignToken, NumberToken],
+          [BeginToken, :stmtlist, EndToken]
+        ]},
+        stmtlist: { productions: [
+          [:start, SemicolonToken, :stmtlist],
+          nil
+        ]}
+      })
+      tokens << BeginToken.new("begin")
+      tokens << IdentifierToken.new('x')
+      tokens << AssignToken.new(':=')
+      tokens << NumberToken.new('45')
+      tokens << SemicolonToken.new(";")
+      tokens << EndToken.new("end")
+      expect{grammar.starting_production(tokens).execute}.to_not raise_error
+    end
+
+    it "handles multiple statements correctly" do
+      grammar = Grammar.new({
+        start: { productions: [
+          [IdentifierToken, AssignToken, NumberToken],
+          [IdentifierToken, AssignToken, NumberToken],
+          [BeginToken, :stmtlist, EndToken]
+        ]},
+        stmtlist: { productions: [
+          [:start, SemicolonToken, :stmtlist],
+          nil
+        ]}
+      })
+      tokens << BeginToken.new("begin")
+      tokens << IdentifierToken.new('x')
+      tokens << AssignToken.new(':=')
+      tokens << NumberToken.new('45')
+      tokens << SemicolonToken.new(";")
+      tokens << IdentifierToken.new('y')
+      tokens << AssignToken.new(':=')
+      tokens << NumberToken.new('0')
+      tokens << SemicolonToken.new(";")
+      tokens << EndToken.new("end")
+      expect{grammar.starting_production(tokens).execute}.to_not raise_error
+    end
   end
 end

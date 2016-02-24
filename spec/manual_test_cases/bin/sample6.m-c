@@ -1,1 +1,9 @@
-ParseError: Line 3, column 3: Expected Terminal(EndToken), got ID(print)
+BEGIN
+ID(x)
+ASSIGN
+NUM(6)
+SEMICOLON
+WRITE
+ID(x)
+SEMICOLON
+END
