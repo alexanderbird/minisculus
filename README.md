@@ -101,6 +101,24 @@ Each instance contains the class of the token to initialize when tokenizing (sub
 ###### Token Class and SubClasses
 Knows how to interpret the string that was matched to create the token. For example, identifier stores the string bare, number casts it to an integer, and the begin keyword ignores it. Note that all simple Token SubClasses are auto-generated. 
 
+###### TokenList
+Array-like interface, but it allows you to save_state (using Momento pattern) and restore it later on. In other words, when you `shift` the head off of a TokenList, it's not gone for good - you can `load_state` later to return to a previous state. 
+
+#### Parser
+###### Production and child classes
+Given a TokenList and a Gramar, parses head of TokenList or throws exception. Grammar is needed in case one of this production's symbols is a reference to another production. This implements the Collection pattern: a single Production (ie Terminal, NullProduction) can be used in the same way that a collection (ie NonterminalProduction) can. The collection delegates to the items in its collection. 
+
+* **NullProduction** pops nothing, and never fails
+* **Terminal** if list head matches Token type, shift it off - otherwise, fail
+* **NonterminalProduction** composed of many Productions. If all succeed, then this production succeeds. Otherwise, bubble up the failure message
+* **ProductionSet** composed of many Productions, one must succeed, otherwise this Production fails. The Production that parses the most tokens before failing is the one that sets the error message upon failure. 
+
+###### Grammar
+Generic class that takes a hash describing the grammar and converts any given rule to a Production object on the fly. Note that the Production is not "deep initialized" - if it refers to another production, only the label is stored. Also has reference to the starting production. 
+
+###### MinisculusGrammar
+Concrete implementation of Grammar that describes the Minisculus language. 
+
 #### Other source files of note
 * `spec` directory contains all the unit tests
 * `Gemfile` contains the dependancy list to be used with bundler tool
