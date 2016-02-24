@@ -1,24 +1,10 @@
 describe TokenList do
   let(:list) { TokenList.new }
 
-  context "ancestry" do
-    it "is an array" do
-      expect(list).to be_kind_of Array
-    end
-    
-    let(:accepted_methods) {[ :<<, :shift, :first, :last, :each, :count ]}
-
-    it "does not expose array methods" do
-      array_instance_methods = Array.instance_methods - Object.instance_methods
-      (array_instance_methods - accepted_methods).each do |method|
-        expect(list.private_methods).to include method
-      end
-    end
-
-    it "exposes certain permitted methods" do
-      accepted_methods.each do |method|
-        expect(list.public_methods).to include method
-      end
+  context "#initialize" do
+    it "allows you to initialize it with an array" do
+      list = TokenList.new [:foo, :bar]
+      expect(list.shift).to eq :foo
     end
   end
 
@@ -33,6 +19,51 @@ describe TokenList do
       list << 2
       list.shift
       expect(list.shift).to eq 2
+    end
+  end
+
+  context "built-in array functions" do
+    before do
+      list << 1
+      list << 2
+      list << 3
+      list << 4
+      list.shift
+      list.shift
+    end
+
+    it "#count does not include `shift`ed items" do
+      expect(list.count).to eq 2
+    end
+
+    it "#to_a does not inlcude `shift`ed items" do
+      expect(list.to_a).to eq [3,4]
+    end
+
+    it "#first does not include `shift`ed items" do
+      expect(list.first).to eq 3
+    end
+
+    it "#each does not include `shift`ed items" do
+      items = []
+      list.each do |item|
+        items << item
+      end
+      expect(items.count).to eq 2
+    end
+
+    it "delegates last to internal array" do
+      expect(list.last).to eq 4
+    end
+  end
+
+  context "#==" do
+    it "is equal to the corresponding array" do
+      expect(TokenList.new([:foo])).to eq [:foo]
+    end
+
+    it "is equal to a different TokenList with the same list" do
+      expect(TokenList.new([:foo])).to eq TokenList.new([:foo])
     end
   end
 

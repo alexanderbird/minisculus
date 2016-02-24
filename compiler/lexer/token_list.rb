@@ -1,21 +1,42 @@
-class TokenList < Array
-  # Don't expose Array instance methods
-  (self.instance_methods - Object.instance_methods).each do |method|
-    private method
-  end
-  
-  # except for the following
-  public :<<, :shift, :first, :last, :each, :count
-
-  def initialize
+class TokenList
+  def initialize list = []
     @index = 0
+    @list = list.to_a
   end
 
   def shift
     # "soft" shift - don't remove the shifted elements
-    head = self.send :[], @index
+    head = @list[@index]
     @index += 1
     return head
+  end
+
+  def << val
+    @list << val
+  end
+
+  def first
+    @list[@index]
+  end
+
+  def last
+    @list.last
+  end
+
+  def each &block
+    self.to_a.each &block
+  end
+
+  def count
+    @list.count - @index
+  end
+
+  def == val
+    @list == val.to_a
+  end
+
+  def to_a
+    @list[@index..-1]
   end
 
   def save_state

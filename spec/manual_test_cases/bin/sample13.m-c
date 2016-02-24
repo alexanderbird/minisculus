@@ -1,3 +1,1 @@
-/Users/Alex/Code/minisculus/compiler/lexer/lexer.rb:49:in `lex': Unknown token on line 7, column 4 (`_bar`...) (LexError)
-	from /Users/Alex/Code/minisculus/compiler/compiler.rb:15:in `compile'
-	from ./lexer:4:in `<main>'
+LexError: Unknown token on line 7, column 4 (`_bar`...)

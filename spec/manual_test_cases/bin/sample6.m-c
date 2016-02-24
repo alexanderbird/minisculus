@@ -1,9 +1,1 @@
-BEGIN
-ID(x)
-ASSIGN
-NUM(6)
-SEMICOLON
-ID(print)
-ID(x)
-SEMICOLON
-END
+ParseError: Line 3, column 3: Expected Terminal(EndToken), got ID(print)

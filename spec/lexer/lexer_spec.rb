@@ -16,7 +16,7 @@ describe Lexer do
       end
 
       it "returns an empty list when given an empty string as input" do
-        expect(lexer.lex "").to eq []
+        expect(lexer.lex "").to eq TokenList.new
       end
 
       it "attempts to match each TokenRule to the input" do

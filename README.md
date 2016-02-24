@@ -5,7 +5,7 @@
 1. Install prerequisites ([Ruby 2.x](https://www.ruby-lang.org/en/documentation/installation/) and [bundler](http://bundler.io/))
 2. Install dependancies (`bundle install`)
 3. Test (optional) (`rspec`)
-4. Run `./lexer infile.m-`
+4. Run `./compile infile.m-`
 
 ## Implementation Notes
 * Comments are handled by a preprocessor that removes any commented characters other than newlines (so that the line count is preserved)
@@ -17,17 +17,17 @@
 * sample 1-6 and 9 were provided by the instructor
 * sample 10-15 were written by me
 
-### Unit Testing
+### Unit Testing for Lexer
 * unit tests found in *spec/*
 * for a detailed list of unit test cases, run `rspec --format documentation` (or view the results in *doc/unit_test_list.txt*)
   * The key set of tests are for the lex method of the Lexer class (found under Lexer#lex in the unit_test_list)
 * As a very rough measure of coverage, for the approximately 325 lines of lexer code that I have written, I have approximately 400 lines of unit tests
 
 ## Alternate Usage
-* save output to file: `./lexer infile.m- > outfile.m-c`
-* lex all sample files: `for file in spec/manual_test_cases/src/sample*.m-; do ./lexer $file > spec/manual_test_cases/bin/$(basename $file)c 2>&1; done`
-* if you installed ruby at a different path than */urs/local/bin/ruby*: `/path/to/ruby ./lexer infile.m-`
- * This is the way to get around the following error: `-bash: ./lexer: /usr/local/bin/ruby: bad interpreter: No such file or directory`
+* save output to file: `./compile infile.m- > outfile.m-c`
+* parse all sample files: `for file in spec/manual_test_cases/src/sample*.m-; do ./compile $file > spec/manual_test_cases/bin/$(basename $file)c 2>&1; done`
+* if you installed ruby at a different path than */urs/local/bin/ruby*: `/path/to/ruby ./compile infile.m-`
+ * This is the way to get around the following error: `-bash: ./compile: /usr/local/bin/ruby: bad interpreter: No such file or directory`
 
 ## Language Information
 ### Grammar
@@ -104,4 +104,4 @@ Knows how to interpret the string that was matched to create the token. For exam
 #### Other source files of note
 * `spec` directory contains all the unit tests
 * `Gemfile` contains the dependancy list to be used with bundler tool
-* `sample_code` contains some sample minisculus code to be parsed
+* `spec/manual_test_cases/src` contains some sample minisculus code to be parsed

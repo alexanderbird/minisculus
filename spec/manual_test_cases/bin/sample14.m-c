@@ -1,3 +1,1 @@
-BEGIN
-ID(FooBar)
-END
+ParseError: Line 8, column 3: Expected Terminal(EndToken), got ID(FooBar)
