@@ -26,7 +26,7 @@ class Lexer
   end
 
   def lex input
-    tokens = []
+    tokens = TokenList.new
     current_column = 1
     current_line = 1
     while input.length > 0

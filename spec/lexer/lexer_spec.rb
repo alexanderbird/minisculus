@@ -11,6 +11,10 @@ describe Lexer do
         ]
       end
 
+      it "returns a token list" do
+        expect(lexer.lex "").to be_kind_of TokenList
+      end
+
       it "returns an empty list when given an empty string as input" do
         expect(lexer.lex "").to eq []
       end
