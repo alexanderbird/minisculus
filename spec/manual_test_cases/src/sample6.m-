@@ -1,4 +1,4 @@
 begin
   x := 6;
-  write x;
+  write x
 end

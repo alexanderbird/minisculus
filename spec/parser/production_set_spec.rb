@@ -36,7 +36,7 @@ describe ProductionSet do
 
     it "restores the token list to its pre-parsing state if a rule fails" do
       @production_set = ProductionSet.new(tokens, Grammar.new, [
-        [BeginToken, EndToken],
+        EndToken,
         [BeginToken, IfToken, AddToken, EndToken]
       ])
       tokens << BeginToken.new("begin")
@@ -50,20 +50,6 @@ describe ProductionSet do
       allow_any_instance_of(Terminal).to receive(:execute).and_raise(ParseError.new(terminal))
       allow_any_instance_of(NonterminalProduction).to receive(:execute).and_raise(ParseError.new(terminal))
       expect{@production_set.execute}.to raise_error ParseError
-    end
-
-    it "raises the most relevant ParseError if not productions executed successfully" do
-      @production_set = ProductionSet.new(tokens, Grammar.new, [
-        [BeginToken, EndToken],
-        [BeginToken, IfToken, EndToken],
-        [BeginToken, IfToken, AddToken, EndToken]
-      ])
-      tokens << BeginToken.new("begin")
-      tokens << IfToken.new("if")
-      tokens << AddToken.new("+")
-      tokens << AddToken.new("+")
-      tokens << EndToken.new("end")
-      expect{@production_set.execute}.to raise_error ParseError, /EndToken.*ADD/
     end
 
     it "functions correctly with nested productions and null productions" do
@@ -123,6 +109,18 @@ describe ProductionSet do
       tokens << SemicolonToken.new(";")
       tokens << EndToken.new("end")
       expect{grammar.starting_production(tokens).execute}.to_not raise_error
+    end
+
+    it "assumes grammar is LL(1)" do
+      grammar = Grammar.new({
+        start: { productions: [
+          [IdentifierToken, AssignToken],
+          [IdentifierToken, NumberToken]
+        ]}
+      })
+      tokens << IdentifierToken.new('x')
+      tokens << NumberToken.new('45')
+      expect{grammar.starting_production(tokens).execute}.to raise_error ParseError
     end
   end
 end

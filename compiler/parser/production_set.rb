@@ -7,8 +7,7 @@ class ProductionSet < Production
 
   def execute
     any_successful = false
-    furthest_parse_index = @tokens.count
-    most_relevant_error = nil
+    initial_parse_index = @tokens.count
     @productions.each do |production|
       state = @tokens.save_state
       begin
@@ -16,14 +15,14 @@ class ProductionSet < Production
         any_successful = true
         break
       rescue ParseError => e
-        if @tokens.count < furthest_parse_index
-          most_relevant_error = e
-          furthest_parse_index = @tokens.count
+        if @tokens.count < initial_parse_index
+          # that means that at least the first token was matched. Don't bother with any other rules
+          raise e
         end
         @tokens.load_state state
       end
     end
-    raise most_relevant_error || ParseError.new(self) unless any_successful
+    raise ParseError.new(self) unless any_successful
   end
 
   def to_s

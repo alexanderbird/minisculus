@@ -1,9 +1,1 @@
-BEGIN
-ID(x)
-ASSIGN
-NUM(6)
-SEMICOLON
-WRITE
-ID(x)
-SEMICOLON
-END
+ParseError: Line 4, column 1: Expected Terminal(SemicolonToken), got END
