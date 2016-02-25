@@ -2,7 +2,7 @@ describe Production do
   let(:tokens) { TokenList.new }
   let(:production) { Production.new tokens, Grammar.new}
 
-  context "#initalize" do
+  context "#initialize" do
     it "requires a TokenList" do
       expect{Production.new}.to raise_error ArgumentError
       expect{Production.new "", nil}.to raise_error ArgumentError, /[Ee]xpected TokenList, got String/
