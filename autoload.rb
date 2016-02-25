@@ -1,3 +1,5 @@
+require 'rubyvis'
+
 autoload :Compiler, "./compiler/compiler.rb"
 
 def camelize input

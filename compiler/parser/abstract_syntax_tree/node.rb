@@ -8,6 +8,14 @@ module AbstractSyntaxTree
       @identifier.to_s
     end
 
+    def visualize
+      Visualizer.new(self).visualize
+    end
+
+    def to_hash
+      raise NotImplementedError
+    end
+
     attr_reader :identifier
   end
 end

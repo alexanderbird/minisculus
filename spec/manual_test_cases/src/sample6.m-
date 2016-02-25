@@ -1,4 +1,6 @@
 begin
   x := 6;
-  write x
+  y := x*2;
+  z := y+x/15;
+  write z;
 end

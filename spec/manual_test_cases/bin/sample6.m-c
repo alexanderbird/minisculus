@@ -1,1 +1,23 @@
-ParseError: Line 4, column 1: Expected Terminal(SemicolonToken), got END
+BEGIN
+ID(x)
+ASSIGN
+NUM(6)
+SEMICOLON
+ID(y)
+ASSIGN
+ID(x)
+MUL
+NUM(2)
+SEMICOLON
+ID(z)
+ASSIGN
+ID(y)
+ADD
+ID(x)
+DIV
+NUM(15)
+SEMICOLON
+WRITE
+ID(z)
+SEMICOLON
+END

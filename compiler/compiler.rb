@@ -17,10 +17,16 @@ module Compiler
     all_tokens = tokens.clone
     grammar = MinisculusGrammar.new
     ast = grammar.starting_production(tokens).execute
-    print "TOKENS\n"
-    print all_tokens.to_a.map!(&:to_s).join("\n") + "\n" if all_tokens && !options[:silent]
-    print "\nAST\n"
-    print ast.inspect
+    
+    return if options[:silent]
+    case options[:mode]
+    when :parse
+      puts all_tokens.to_a.join("\n")
+    when :ast
+      puts ast.visualize
+    when :compile
+      puts "TODO: output stack code"
+    end
   rescue Exception => e
     print "#{e.class}: #{e}\n" unless options[:silent]
   end

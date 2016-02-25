@@ -25,7 +25,8 @@
 
 ## Alternate Usage
 * save output to file: `./compile infile.m- > outfile.m-c`
-* parse all sample files: `for file in spec/manual_test_cases/src/sample*.m-; do ./compile $file > spec/manual_test_cases/bin/$(basename $file)c 2>&1; done`
+* parse all sample files: `for file in spec/manual_test_cases/src/sample*.m-; do ./compile $file --mode parse > spec/manual_test_cases/bin/$(basename $file)c 2>&1; done`
+* generate ast for all: `for file in spec/manual_test_cases/src/sample*.m-; do ./compile $file --mode ast > spec/manual_test_cases/ast/$(basename $file).svg 2>&1; done`
 * if you installed ruby at a different path than */urs/local/bin/ruby*: `/path/to/ruby ./compile infile.m-`
  * This is the way to get around the following error: `-bash: ./compile: /usr/local/bin/ruby: bad interpreter: No such file or directory`
 

@@ -15,6 +15,14 @@ module AbstractSyntaxTree
       end
     end
 
+    def to_hash
+      child_hash = {}
+      @children.each do |child|
+        child_hash.merge! child.to_hash
+      end
+      { self.to_s => child_hash }
+    end
+
     attr_reader :children
   end
 end

@@ -3,6 +3,23 @@ describe AbstractSyntaxTree::NonterminalNode do
     expect(AbstractSyntaxTree::NonterminalNode.new(:nil)).to be_kind_of AbstractSyntaxTree::Node
   end
 
+  it "implements to_hash" do
+    node = AbstractSyntaxTree::NonterminalNode.new([NumberToken, nil, :other_production])
+    node << AbstractSyntaxTree::TerminalNode.new(NumberToken.new(4))
+    expect(node.to_hash).to eq({ "[NumberToken, nil, :other_production]" => { "NUM(4)" => true }})
+  end
+
+  it "recurses in to_hash" do
+    node = AbstractSyntaxTree::NonterminalNode.new([NumberToken, nil, :other_production])
+    child_node1 = AbstractSyntaxTree::TerminalNode.new(NumberToken.new(4))
+    allow(child_node1).to receive(:to_hash).and_return({foo: :bar})
+    node << child_node1
+    child_node2 = AbstractSyntaxTree::TerminalNode.new(NumberToken.new(4))
+    allow(child_node2).to receive(:to_hash).and_return({baz: :quux})
+    node << child_node2
+    expect(node.to_hash).to eq({ "[NumberToken, nil, :other_production]" => { foo: :bar, baz: :quux }})
+  end
+
   context "children management" do
     let(:node) { AbstractSyntaxTree::NonterminalNode.new(:nil) }
 
