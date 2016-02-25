@@ -5,30 +5,30 @@
 1. Install prerequisites ([Ruby 2.x](https://www.ruby-lang.org/en/documentation/installation/) and [bundler](http://bundler.io/))
 2. Install dependancies (`bundle install`)
 3. Test (optional) (`rspec`)
-4. Run `./compile infile.m-`
+4. Run `ruby ./compile --help`
 
 ## Implementation Notes
 * Comments are handled by a preprocessor that removes any commented characters other than newlines (so that the line count is preserved)
+* Assignment 2 requirements not met: I do not generate any stack machine code
+  * This is not because I found the technical challenge to be too great, but simply a matter of running out of time
 
 ## Testing
 ### End-to-end Testing
 * [spec/manual_test_cases/src/*](spec/manual_test_cases/src) contains test input files
 * [spec/manual_test_cases/bin/*](spec/manual_test_cases/bin) contains test output files
-* sample 1-6 and 9 were provided by the instructor
-* sample 10-15 were written by me
+* [spec/manual_test_cases/ast/*](spec/manual_test_cases/ast) contains ast output - scroll far to the right and down to see ast
+* sample 1 to 6 and 9 were provided by the instructor
+* sample 10 to 15 were written by me
+* Mtest 14-1 to 14-5 were provided by the instructor
 
-### Unit Testing for Lexer
+### Unit Testing for Compiler
 * unit tests found in *spec/*
 * for a detailed list of unit test cases, run `rspec --format documentation` (or view the results in *doc/unit_test_list.txt*)
-  * The key set of tests are for the lex method of the Lexer class (found under Lexer#lex in the unit_test_list)
-* As a very rough measure of coverage, for the approximately 325 lines of lexer code that I have written, I have approximately 400 lines of unit tests
+* As a very rough measure of coverage, out of the approximately 1500 lines of code that I have written, more than 900 of that is unit tests
 
-## Alternate Usage
-* save output to file: `./compile infile.m- > outfile.m-c`
-* parse all sample files: `for file in spec/manual_test_cases/src/*.m-; do ./compile $file --mode parse > spec/manual_test_cases/bin/$(basename $file)c 2>&1; done`
-* generate ast for all: `for file in spec/manual_test_cases/src/*.m-; do ./compile $file --mode ast > spec/manual_test_cases/ast/$(basename $file).svg 2>&1; done`
-* if you installed ruby at a different path than */urs/local/bin/ruby*: `/path/to/ruby ./compile infile.m-`
- * This is the way to get around the following error: `-bash: ./compile: /usr/local/bin/ruby: bad interpreter: No such file or directory`
+## Helpful Oneliners
+* **parse all sample files:** `for file in spec/manual_test_cases/src/*.m-; do ./compile $file --mode parse > spec/manual_test_cases/bin/$(basename $file)c 2>&1; done`
+* **generate ast for all sample files:** `for file in spec/manual_test_cases/src/*.m-; do ./compile $file --mode ast > spec/manual_test_cases/ast/$(basename $file).svg 2>&1; done`
 
 ## Language Information
 ### Grammar

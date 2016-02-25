@@ -1,16 +1,14 @@
 
 Compiler
   #compile
-
     lexes from a file
-
     calls the preprocessor first
     closes the file if the read operation fails
-    prints the result
 
 Lexer
   #lex
     basic mechanics
+      returns a token list
       returns an empty list when given an empty string as input
       attempts to match each TokenRule to the input
       matches on first come first serve basis if multiple rules will match
@@ -21,7 +19,7 @@ Lexer
       tells you the column number of the lex error when it's on a later column
       tells you the position of the lex error
       gives you a 10 character hint when you get a lexer error on a long line
-      gives you a shorter character hing when you get a lexer error on a line less than 10 characters
+      gives you a shorter character hint when you get a lexer error on a line less than 10 characters
       stores the line and column in the token
     tokenizing
       lexes IfToken
@@ -63,6 +61,26 @@ Lexer
       handles identifier tokens
       handles number tokens
 
+TokenList
+  #initialize
+    allows you to initialize it with an array
+  #shift
+    returns the first item in the list
+    removes that item from the list
+  built-in array functions
+    #count does not include `shift`ed items
+    #to_a does not inlcude `shift`ed items
+    #first does not include `shift`ed items
+    #each does not include `shift`ed items
+    delegates last to internal array
+  #==
+    is equal to the corresponding array
+    is equal to a different TokenList with the same list
+  #save_state
+    returns a TokenListState
+  #load_state
+    restores the previously shifted items
+
 TokenRule
   #initialize
     throws an error if the first argument isn't a token class
@@ -81,6 +99,10 @@ TokenRule
 IdentifierToken
   is a token
   stores the identifier
+  is_significant
+
+NumberToken
+  is_significant
 
 Token
   accepts a string in the constructor
@@ -91,6 +113,98 @@ Token
     uses the name method in the to_s
     defaults to the name 'TOKEN' with no empty parens
     adds a the printing_parameters in a comma sepparated list
+  #is_significant?
+    isn't
+
+AbstractSyntaxTree::Node
+  uses the constructor argument for to_s
+  gives access to the identifier object
+  has abstract to_hash method
+
+AbstractSyntaxTree::NonterminalNode
+  is a node
+  implements to_hash
+  recurses in to_hash
+  children management
+    allows you to add nodes and access them in the children list
+    does not allow you to add non-node children
+    ignores nil assignment
+    has an empty child node list to start with
+
+AbstractSyntaxTree::TerminalNode
+  is a node
+  implements to_hash
+
+Grammar
+  #initialize
+    expects a hash
+  #production
+    creates the appropriate production
+    recognizes the null production
+    blows up if there is no matching production
+    sets the production's name
+  #starting_production
+    takes the first key in the grammar rules
+
+NonterminalProduction
+  #execute
+    calls execute on all of its symbols in order
+    removes tokens
+    returns a node with all the nodes returned by children as node children
+    returns a node with the correct identifier
+  #identifier
+    gives a string representation of the symbol array
+
+NullProduction
+  #execute
+    does not shift any tokens of the TokenList
+    returns nil
+
+ProductionSet
+  #initialize
+    complains if productions arg isn't iterable
+  #execute
+    delegates #execute to the productions
+    returns the node from the successful sub-production
+    stops after the first successful production
+    continues after unsuccessful productions
+    restores the token list to its pre-parsing state if a rule fails
+    raises a ParseError if no productions executed successfully
+    functions correctly with nested productions and null productions
+    handles begin statement end blocks correctly
+    handles multiple statements correctly
+    assumes grammar is LL(1)
+
+Production
+  #initialize
+    requires a TokenList
+    requires a Grammar
+    exposes token list publically
+    exposes the token list to subclasses
+  #execute
+    is abstract
+  #fork
+    blows up if it doesn't recognize the identifier
+    converts Token to Terminal
+    converts nil to NullProduction
+    converts 1D array to NonterminalProduction
+    converts 2D array to ProductionSet
+    searches for symbol in the Grammar
+  .create_from
+    forks a new Production class
+  #identifier
+    uses @name if set
+    uses class name if @name isn't set
+
+Terminal
+  #execute
+    shifts the first token
+    raises ParseError if the `shift`ed token is not of the same type as the terminal token
+    returns nil if the `shift`ed token is not significant
+    returns a AbstractSyntaxTree::Node.new(@token) if the token is significant
+  #identifier
+    returns the token class before executing
+    returns the token proper after executing
 
 PreprocessorRule
   #initialize and accessors
@@ -129,5 +243,5 @@ Preprocessor
     properly handles nested multi-line comments that are on one line
     properly handles nested multi-line comments that are on multiple lines
 
-Finished in 0.07884 seconds (files took 0.50462 seconds to load)
-100 examples, 0 failures
+Finished in 0.10761 seconds (files took 0.65382 seconds to load)
+171 examples, 0 failures

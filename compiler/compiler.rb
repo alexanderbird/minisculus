@@ -2,6 +2,7 @@ require './autoload'
 
 module Compiler
   def self.compile filename, options = {}
+    raise ArgumentError, "Missing filename" unless filename
     file = File.open(filename)
     code = ''
     begin
@@ -27,7 +28,11 @@ module Compiler
     when :compile
       puts "TODO: output stack code"
     end
-  rescue Exception => e
-    print "#{e.class}: #{e}\n" unless options[:silent]
+  rescue StandardError => e
+    if options[:verbose]
+      raise e
+    else
+      print "#{e.class}: #{e}\n" unless options[:silent]
+    end
   end
 end
