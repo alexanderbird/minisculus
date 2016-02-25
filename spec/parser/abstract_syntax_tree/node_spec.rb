@@ -3,4 +3,9 @@ describe AbstractSyntaxTree::Node do
     node = AbstractSyntaxTree::Node.new :foo
     expect(node.to_s).to eq 'foo'
   end
+
+  it "gives access to the identifier object" do
+    node = AbstractSyntaxTree::Node.new :foo
+    expect(node.identifier).to eq :foo
+  end
 end

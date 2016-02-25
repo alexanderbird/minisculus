@@ -8,10 +8,11 @@ class ProductionSet < Production
   def execute
     any_successful = false
     initial_parse_index = @tokens.count
+    node = nil
     @productions.each do |production|
       state = @tokens.save_state
       begin
-        self.fork(production).execute
+        node = self.fork(production).execute
         any_successful = true
         break
       rescue ParseError => e
@@ -23,6 +24,7 @@ class ProductionSet < Production
       end
     end
     raise ParseError.new(self) unless any_successful
+    node
   end
 
   def to_s

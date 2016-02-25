@@ -3,8 +3,9 @@ describe NonterminalProduction do
     @symbols = [NumberToken, nil]
   end
 
+  let(:tokens) { TokenList.new }
   let(:grammar) { Grammar.new({ symbol: [BeginToken, :symbol, EndToken] }) }
-  let(:nonterminal) { NonterminalProduction.new(TokenList.new, grammar, @symbols) }
+  let(:nonterminal) { NonterminalProduction.new(tokens, grammar, @symbols) }
 
   context "#execute" do
     it "calls execute on all of its symbols in order" do
@@ -14,13 +15,29 @@ describe NonterminalProduction do
     end
 
     it "removes tokens" do
-      tokens = TokenList.new
-      @production_set = NonterminalProduction.new(tokens, grammar, [BeginToken, IfToken])
+      @symbols = [BeginToken, IfToken]
       tokens << BeginToken.new("begin")
       tokens << IfToken.new("if")
       tokens << EndToken.new("end")
-      @production_set.execute
+      nonterminal.execute
       expect(tokens.count).to eq 1
+    end
+
+    it "returns a node with all the nodes returned by children as node children" do
+      @symbols = [BeginToken, IdentifierToken, NumberToken, nil]
+      tokens << BeginToken.new("begin")
+      id = IdentifierToken.new("varName")
+      tokens << id 
+      number = NumberToken.new("2")
+      tokens << number
+      node = nonterminal.execute
+      expect(node.children.count).to eq 2
+    end
+
+    it "returns a node with the correct identifier" do
+      tokens << NumberToken.new(1)
+      node = nonterminal.execute 
+      expect(node.identifier).to eq @symbols
     end
   end
 

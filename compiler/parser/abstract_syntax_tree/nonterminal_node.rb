@@ -6,8 +6,13 @@ module AbstractSyntaxTree
     end
 
     def << rhs
-      raise ArgumentError, "Expected AbstractSyntaxTree::Node, got #{rhs.inspect}" unless rhs.kind_of?(AbstractSyntaxTree::Node)
-      @children << rhs
+      if rhs.kind_of? AbstractSyntaxTree::Node
+        @children << rhs
+      elsif rhs == nil
+        return
+      else
+        raise ArgumentError, "Expected AbstractSyntaxTree::Node, got #{rhs.inspect}"
+      end
     end
 
     attr_reader :children

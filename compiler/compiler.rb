@@ -16,8 +16,11 @@ module Compiler
     tokens = Lexer.new.lex processed_code
     all_tokens = tokens.clone
     grammar = MinisculusGrammar.new
-    grammar.starting_production(tokens).execute
+    ast = grammar.starting_production(tokens).execute
+    print "TOKENS\n"
     print all_tokens.to_a.map!(&:to_s).join("\n") + "\n" if all_tokens && !options[:silent]
+    print "\nAST\n"
+    print ast.inspect
   rescue Exception => e
     print "#{e.class}: #{e}\n" unless options[:silent]
   end

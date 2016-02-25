@@ -10,6 +10,7 @@ class Terminal < Production
     else
       raise ParseError, self
     end
+    return @token.is_significant? ? AbstractSyntaxTree::TerminalNode.new(@token) : nil
   end
 
   def to_s

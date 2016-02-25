@@ -18,6 +18,11 @@ describe AbstractSyntaxTree::NonterminalNode do
       expect{node << :not_a_node}.to raise_error ArgumentError, /[Ee]xpected AbstractSyntaxTree::Node, got :not_a_node/
     end
 
+    it "ignores nil assignment" do
+      expect{node << nil}.to_not raise_error
+      expect(node.children).to be_empty
+    end
+
     it "has an empty child node list to start with" do
       expect(node.children).to eq [] 
     end

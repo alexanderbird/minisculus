@@ -7,5 +7,7 @@ module AbstractSyntaxTree
     def to_s 
       @identifier.to_s
     end
+
+    attr_reader :identifier
   end
 end

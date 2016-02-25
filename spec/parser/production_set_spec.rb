@@ -22,6 +22,13 @@ describe ProductionSet do
       @production_set.execute
     end
 
+    it "returns the node from the successful sub-production" do
+      node = AbstractSyntaxTree::TerminalNode.new(:foo)
+      allow_any_instance_of(Terminal).to receive(:execute).and_return node
+      returned_node = @production_set.execute
+      expect(returned_node).to eq node
+    end
+
     it "stops after the first successful production" do
       expect_any_instance_of(Terminal).to receive(:execute)
       expect_any_instance_of(NonterminalProduction).to_not receive(:execute)

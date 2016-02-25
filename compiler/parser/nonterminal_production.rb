@@ -5,9 +5,11 @@ class NonterminalProduction < Production
   end
 
   def execute
+    node = AbstractSyntaxTree::NonterminalNode.new(@symbols)
     @symbols.each do |symbol|
-      self.fork(symbol).execute
+      node << self.fork(symbol).execute
     end
+    node
   end
 
   def to_s
