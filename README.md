@@ -33,12 +33,14 @@
 ### Grammar
 
     prog -> stmt. 
-    stmt -> IF expr THEN stmt ELSE stmt
+    stmt -> IF expr thenpart
                 | WHILE expr DO stmt
                 | INPUT ID
                 | ID ASSIGN expr
                 | WRITE expr
                 | BEGIN stmtlist END. 
+    thenpart -> THEN stmt elsepart.
+    elsepart -> ELSE stmt.
     stmtlist -> stmt SEMICOLON stmtlist
                 |. 
     expr -> term expr'.

@@ -3,13 +3,15 @@ class MinisculusGrammar < Grammar
   super({
       prog: :stmt, 
       stmt: { productions: [
-        [IfToken, :expr, ThenToken, :stmt, ElseToken, :stmt],
+        [IfToken, :expr, :thenpart],
         [WhileToken, :expr, DoToken, :stmt],
         [InputToken, IdentifierToken],
         [IdentifierToken, AssignToken, :expr],
         [WriteToken, :expr],
         [BeginToken, :stmtlist, EndToken]
       ]},
+      thenpart: [ThenToken, :stmt, :elsepart],
+      elsepart: [ElseToken, :stmt],
       stmtlist: { productions: [
         [:stmt, SemicolonToken, :stmtlist],
         nil
