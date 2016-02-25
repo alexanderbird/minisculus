@@ -14,5 +14,8 @@ class NonterminalProduction < Production
     super "[#{@symbols.join(', ')}]"
   end
 
+  def identifier
+    @symbols.compact.join(", ")
+  end
   attr_reader :symbols
 end

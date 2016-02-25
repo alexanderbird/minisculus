@@ -6,7 +6,7 @@ class Terminal < Production
 
   def execute
     if @tokens.first.kind_of? @token_class
-      @tokens.shift
+      @token = @tokens.shift
     else
       raise ParseError, self
     end
@@ -14,6 +14,10 @@ class Terminal < Production
 
   def to_s
     super @token_class.to_s
+  end
+
+  def identifier
+    @token || @token_class
   end
 
   attr_reader :token_class

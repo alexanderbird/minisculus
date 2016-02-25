@@ -38,6 +38,10 @@ class Production
     end
   end
 
+  def identifier
+    @name || self.class.to_s
+  end
+
   attr_accessor :grammar
   attr_accessor :name
   attr_reader :tokens

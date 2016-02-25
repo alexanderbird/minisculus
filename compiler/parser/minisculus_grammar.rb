@@ -18,21 +18,15 @@ class MinisculusGrammar < Grammar
       ]},
       expr: [:term, :expr_],
       expr_: { productions: [
-        [:addop, :term, :expr_],
+        [AddToken, :term, :expr_],
+        [SubToken, :term, :expr_],
         nil
-      ]},
-      addop: { productions: [
-        AddToken,
-        SubToken
       ]},
       term: [:factor, :term_],
       term_: { productions: [
-        [:mulop, :factor, :term_],
+        [MulToken, :factor, :term_],
+        [DivToken, :factor, :term_],
         nil
-      ]},
-      mulop: { productions: [
-        MulToken,
-        DivToken
       ]},
       factor: { productions: [
         [LeftParenToken, :expr, RightParenToken],

@@ -12,4 +12,8 @@ class IdentifierToken < Token
   def printing_parameters
     super + [self.identifier]
   end
+
+  def is_significant?
+    true
+  end
 end

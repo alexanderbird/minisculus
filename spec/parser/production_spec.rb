@@ -93,4 +93,20 @@ describe Production do
       Production.create_from TokenList.new, Grammar.new, NumberToken
     end
   end
+
+  context "#identifier" do
+    it "uses @name if set" do
+      production.name = "foo bar"
+      expect(production.identifier).to eq "foo bar"
+    end
+
+    it "uses class name if @name isn't set" do
+      Object.const_set :SpecialProduction, Class.new(Production)
+      production = SpecialProduction.new(TokenList.new, Grammar.new)
+      production.name = nil
+      expect(production.identifier).to eq "SpecialProduction"
+      # cleanup
+      Object.send :remove_const, :SpecialProduction
+    end
+  end
 end

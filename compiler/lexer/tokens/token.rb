@@ -28,4 +28,8 @@ class Token
   def printing_parameters
     []
   end
+
+  def is_significant?
+    false
+  end
 end

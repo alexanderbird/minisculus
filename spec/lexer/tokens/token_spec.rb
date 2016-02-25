@@ -33,4 +33,10 @@ describe Token do
       expect(Token.new(nil).to_s).to eq 'TOKEN(foo, bar, baz, 50)'
     end
   end
+
+  context "#is_significant?" do
+    it "isn't" do
+      expect(Token.new(nil).is_significant?).to_not be_truthy
+    end
+  end
 end

@@ -44,15 +44,13 @@
     stmtlist -> stmt SEMICOLON stmtlist
                 |. 
     expr -> term expr'.
-    expr' -> addop term expr'
+    expr' -> ADD term expr'
+                |SUB term expr'
                 |.
-    addop -> ADD
-                | SUB. 
     term -> factor term'.
-    term' -> mulop factor term'
+    term' -> MUL factor term'
+                |DIV factor term'
                 |.
-    mulop -> MUL
-                | DIV. 
     factor -> LPAR expr RPAR
                 | ID
                 | NUM
