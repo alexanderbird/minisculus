@@ -4,6 +4,8 @@ GEM
     byebug (8.2.2)
     coderay (1.1.0)
     diff-lcs (1.2.5)
+    ffi (1.9.10)
+    filigree (0.3.3)
     method_source (0.8.2)
     pry (0.10.3)
       coderay (~> 1.1.0)
@@ -12,6 +14,9 @@ GEM
     pry-byebug (3.3.0)
       byebug (~> 8.0)
       pry (~> 0.10)
+    rltk (3.0.1)
+      ffi (>= 1.0.0)
+      filigree (>= 0.2.0)
     rspec (3.1.0)
       rspec-core (~> 3.1.0)
       rspec-expectations (~> 3.1.0)
@@ -33,6 +38,7 @@ PLATFORMS
 DEPENDENCIES
   pry
   pry-byebug
+  rltk
   rspec
   rubyvis
 

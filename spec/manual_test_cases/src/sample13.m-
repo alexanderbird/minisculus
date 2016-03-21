@@ -1,7 +1,0 @@
-/* 
- * Based on the language specification
- * identifiers follow the pattern: {alpha}[{digit}{alpha}]*
- * and thus cannot be snake_case
- */
-
-foo_bar

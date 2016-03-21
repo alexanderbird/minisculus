@@ -1,2 +1,0 @@
-class NewlineNonToken < NonToken
-end
