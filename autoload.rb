@@ -1,4 +1,5 @@
 require 'rubyvis'
+require 'rltk'
 
 autoload :Compiler, "./compiler/compiler.rb"
 
@@ -31,6 +32,4 @@ Dir.glob("compiler/**/*.rb").each do |file|
     autoload klass, "./#{file}"
   end
 end
-
-BoilerplateManager.generate_simple_token_classes
 
