@@ -1,0 +1,2 @@
+class FloatOperation < Operation
+end

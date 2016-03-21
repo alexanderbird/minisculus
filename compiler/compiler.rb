@@ -35,7 +35,7 @@ module Compiler
     when :lex
       puts all_tokens.to_a.join("\n")
     when :ast
-      puts "<ast>#{ast.join()}</ast>"
+      puts "<ast>#{ast.declarations.join()}#{ast.statements.join()}</ast>"
     when :compile
       puts "TODO: output stack code"
     end

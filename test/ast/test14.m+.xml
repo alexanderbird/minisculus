@@ -1,0 +1,1 @@
+<ast><Variable values='x, 9'><Real></Real></Variable><FunctionDeclaration values='a'><Real></Real><Return><App><Multiply></Multiply><Size values='x, 0'></Size><Size values='x, 1'></Size></App></Return></FunctionDeclaration><Print><Identifier values='a'><ArgumentList></ArgumentList></Identifier></Print></ast>

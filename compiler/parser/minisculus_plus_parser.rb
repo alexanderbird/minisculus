@@ -5,7 +5,7 @@ class MinisculusPlusParser < RLTK::Parser
 
   production(:prog, 'block') { |b| b }
   
-  production(:block, 'declarations program_body') { |d, p| d + p }
+  production(:block, 'declarations program_body') { |d, p| Block.new(d, p) }
   
   production(:declarations) do
     clause('declaration SEMICOLON declarations') { |d, _, ds| [d] + ds }
@@ -26,7 +26,7 @@ class MinisculusPlusParser < RLTK::Parser
   end
 
   production(:array_dimensions) do
-    clause('SLPAR expr SRPAR array_dimensions') { |_, e, _, a| e + a }
+    clause('SLPAR expr SRPAR array_dimensions') { |_, e, _, a| e.respond_to?(:value) ? e.value.to_i + a : a }
     nullable 0
   end
 
@@ -118,7 +118,7 @@ class MinisculusPlusParser < RLTK::Parser
   production(:int_factor) do
     clause('LPAR expr RPAR') { |_, e, _| e }
     clause('SIZE LPAR ID basic_array_dimensions RPAR') { |_, _, i, a, _| Size.new(i, a) }
-    clause('FLOAT LPAR expr RPAR') { |_, _, e, _| App.new(Float.new, [e]) }
+    clause('FLOAT LPAR expr RPAR') { |_, _, e, _| App.new(FloatOperation.new, [e]) }
     clause('FLOOR LPAR expr RPAR') { |_, _, e, _| App.new(Floor.new, [e]) }
     clause('CEIL LPAR expr RPAR') { |_, _, e, _| App.new(Ceiling.new, [e]) }
     clause('ID modifier_list') { |i, m| Identifier.new(i, m) }
