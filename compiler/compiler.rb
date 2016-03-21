@@ -28,6 +28,8 @@ module Compiler
     when :compile
       puts "TODO: output stack code"
     end
+  rescue Exception => e
+    raise e
   rescue RLTK::LexingError => e
     if options[:verbose]
       raise e

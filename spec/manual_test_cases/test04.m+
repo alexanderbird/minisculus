@@ -1,0 +1,20 @@
+var first:int;
+var second:int;
+
+fun add_two(left:int, right:int):int {
+  var result:int;
+
+  begin
+  result := left + right;
+  return result;
+  end
+}
+
+begin
+
+first := read
+second := read
+
+print add_two(first, second);
+
+end
