@@ -1,0 +1,2 @@
+class Declaration < Node
+end

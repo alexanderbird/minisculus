@@ -1,0 +1,2 @@
+class Floor < Operation
+end

@@ -1,0 +1,2 @@
+class Divide < Operation
+end

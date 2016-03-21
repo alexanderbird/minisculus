@@ -1,0 +1,2 @@
+class Substitute < Operation
+end

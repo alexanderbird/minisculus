@@ -1,0 +1,2 @@
+class Ceiling < Operation
+end

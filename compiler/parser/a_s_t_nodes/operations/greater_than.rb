@@ -1,0 +1,2 @@
+class GreaterThan < Operation
+end

@@ -1,0 +1,2 @@
+class Boolean < Type
+end

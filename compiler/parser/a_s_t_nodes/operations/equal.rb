@@ -1,0 +1,2 @@
+class Equal < Operation
+end

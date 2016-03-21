@@ -1,0 +1,21 @@
+data program = program ([declaration],[statement])
+data declaration = var (String,[expression],type)
+            | fun (String,[(String,Int,type)],type,[declaration],[statement])
+data statement = assignment (String,[expression],expression)
+            | while (expression,statement)
+            | condition (expression,statement,statement) 
+            | read (String,[expression])
+            | print expression
+            | return expression
+            | block ([declaration],[statement])
+data type = int | bool | real 
+data expression = ival Integer
+            | real_value Float
+            | boolean_value Bool
+            | size (String,Int)
+            | id (String,[expression])
+            | app (operation,[expression])
+data operation = fn String | add | mul | sub | div | neg
+                 | lt | le | gt | ge | eq | not | and | or
+                 | float | floor | ceil
+

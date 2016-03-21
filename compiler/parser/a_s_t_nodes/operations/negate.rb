@@ -1,0 +1,2 @@
+class Negate < Operation
+end

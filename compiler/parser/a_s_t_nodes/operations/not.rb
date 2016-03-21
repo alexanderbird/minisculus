@@ -1,0 +1,2 @@
+class Not < Operation
+end
