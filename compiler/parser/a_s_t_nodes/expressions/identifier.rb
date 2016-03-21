@@ -1,4 +1,4 @@
 class Identifier < Expression
   value :name, String
-  child :expressions, [Expression]
+  value :expression, Expression
 end

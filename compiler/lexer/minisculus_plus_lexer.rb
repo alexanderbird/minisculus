@@ -13,10 +13,10 @@ class MinisculusPlusLexer < RLTK::Lexer
 
   # Operators
   # Math
-  rule(/[+]/)                      { :ADD }
-  rule(/-/)                        { :SUB }
-  rule(/[*]/)                      { :MUL }
-  rule(/\//)                       { :DIV }
+  rule(/[+]/)                     { :ADD }
+  rule(/-/)                       { :SUB }
+  rule(/[*]/)                     { :MUL }
+  rule(/\//)                      { :DIV }
 
   # Boolean
   rule(/&&/)                      { :AND }

@@ -17,12 +17,12 @@ OptionParser.new do |opts|
   end
 
   mode_help = <<-eos
-Compiler mode. One of: parse, ast, compile. Default is `compile`
-                                        o `parse` prints tokens to stdout (`./compile in.m+ -m parse > tokens.txt`)
+Compiler mode. One of: lex, ast, compile. Default is `compile`
+                                        o `lex` prints tokens to stdout (`./compile in.m+ -m lex > tokens.txt`)
                                         o `ast` generates xml version of the tree, sends to stdout (`./compile in.m+ -m ast > ast.xml`)
                                         o `compile` generates stack machine code and prints it to stdout (`./compile in.m+ -m compile > out.m+c`)
   eos
-  opts.on("-m [MODE]", "--mode [MODE]", [:parse, :ast, :compile], mode_help) do |mode|
+  opts.on("-m [MODE]", "--mode [MODE]", [:lex, :ast, :compile], mode_help) do |mode|
     options[:mode] = mode
   end
 end.parse!

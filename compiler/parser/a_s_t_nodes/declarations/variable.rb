@@ -1,5 +1,5 @@
 class Variable < Declaration
   value :name, String
-  child :array_dimensions, [Expression]
+  value :array_dimensions, Fixnum
   child :type, Type
 end

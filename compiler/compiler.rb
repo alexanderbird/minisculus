@@ -1,4 +1,5 @@
 require './autoload'
+require 'timeout'
 
 module Compiler
   def self.compile filename, options = {}
@@ -13,26 +14,37 @@ module Compiler
       file.close
     end
    
-    #processed_code = Preprocessor.new.process code
-    tokens = MinisculusPlusLexer.new.lex code
-    all_tokens = tokens.clone
-    #grammar = MinisculusGrammar.new
-    #ast = grammar.starting_production(tokens).execute
-    ast = MinisculusPlusParser.new.parse tokens
+    tokens = []
+    if [:lex, :ast, :compile].include? options[:mode]
+      Timeout::timeout(3) do
+        tokens = MinisculusPlusLexer.new.lex code
+      end
+      all_tokens = tokens.clone
+    end
+
+    if [:ast, :compile].include? options[:mode]
+      ast = MinisculusPlusParser.new.parse tokens
+    end
+
+    if [:compile].include? options[:mode]
+      # todo
+    end
     
     return if options[:silent]
     case options[:mode]
-    when :parse
+    when :lex
       puts all_tokens.to_a.join("\n")
     when :ast
       puts "<ast>#{ast.join()}</ast>"
     when :compile
       puts "TODO: output stack code"
     end
+  rescue Timeout::Error => e
+    print "Lex error\n" unless options[:silent]
   rescue RLTK::NotInLanguage => e
-    print "#{e}\n"
+    print "#{e}\n" unless options[:silent]
   rescue RLTK::BadToken => e
-    print "#{e}\n"
+    print "#{e}\n" unless options[:silent]
   rescue RLTK::LexingError => e 
     if options[:verbose]
       raise e

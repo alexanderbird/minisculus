@@ -1,0 +1,1 @@
+<ast><Variable values='foo, 0'><IntegerType></IntegerType></Variable><Assignment values='foo'><IntegerValue values='4'></IntegerValue></Assignment></ast>

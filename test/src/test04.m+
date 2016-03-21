@@ -14,8 +14,8 @@ var sum:int;
 
 begin
 
-first := read
-second := read
+read first;
+read second;
 sum := add_two(first, second);
 
 print sum;

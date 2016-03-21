@@ -2,7 +2,7 @@ class MinisculusPlusParser < RLTK::Parser
   def self.nullable return_value = []
     self.clause('') { || return_value }
   end
-  
+
   production(:prog, 'block') { |b| b }
   
   production(:block, 'declarations program_body') { |d, p| d + p }
@@ -27,7 +27,7 @@ class MinisculusPlusParser < RLTK::Parser
 
   production(:array_dimensions) do
     clause('SLPAR expr SRPAR array_dimensions') { |_, e, _, a| e + a }
-    nullable
+    nullable 0
   end
 
   production(:fun_declaration, 'FUN ID param_list COLON type CLPAR declarations fun_body CRPAR') { |_, i, p, _, t, _, d, f, _| FunctionDeclaration.new(i, p, t, d, f) }
@@ -51,9 +51,7 @@ class MinisculusPlusParser < RLTK::Parser
     nullable 0
   end
 
-  production(:program_body) do
-    nullable
-  end
+  production(:program_body, 'BEGIN prog_stmts END') { |_, p, _| p }
 
   production(:fun_body, 'BEGIN prog_stmts RETURN expr SEMICOLON END') { |_, p, _, e, _, _| p + [Return.new(e)]}
 
@@ -65,13 +63,13 @@ class MinisculusPlusParser < RLTK::Parser
   production(:prog_stmt) do
 		clause('IF expr THEN prog_stmt ELSE prog_stmt') { |_, c, i, p, _, e | Condition.new(c, i, e) }
 		clause('WHILE expr DO prog_stmt') { |_, e, _, p| While.new(e, p) }
-		clause('READ identifier') { |_, i| Read.new(i, nil) }
+		clause('READ identifier') { |_, i| Read.new(i.name, []) }
 		clause('identifier ASSIGN expr') { |i, _, e| Assignment.new(i.name, [], e)}
 		clause('PRINT expr') { |_, e| Print.new(e) }
 		clause('CLPAR block CRPAR ') { |_, b, _| b }
   end
 
-  production(:identifier, 'ID array_dimensions') { |i, a| Identifier.new(i, a) } 
+  production(:identifier, 'ID array_dimensions') { |i, a| Identifier.new(i, ArrayDimensions.new(a)) } 
 
   production(:expr) do
     clause('expr OR bint_term') { |e, _, b| App.new(Or.new, [e, b]) }
@@ -123,7 +121,7 @@ class MinisculusPlusParser < RLTK::Parser
     clause('FLOAT LPAR expr RPAR') { |_, _, e, _| App.new(Float.new, [e]) }
     clause('FLOOR LPAR expr RPAR') { |_, _, e, _| App.new(Floor.new, [e]) }
     clause('CEIL LPAR expr RPAR') { |_, _, e, _| App.new(Ceiling.new, [e]) }
-    clause('ID modifier_list') { |i, m| Identifier.new(i, [m]) }
+    clause('ID modifier_list') { |i, m| Identifier.new(i, m) }
     clause('IVAL') { |i| IntegerValue.new(i) }
     clause('RVAL') { |r| RealValue.new(r) }
     clause('BVAL') { |b| BooleanValue.new(b) }
@@ -131,17 +129,17 @@ class MinisculusPlusParser < RLTK::Parser
   end
 
   production(:modifier_list) do
-    clause('LPAR arguments RPAR') { |_, a, _| App.new(FunctionOperation.new, [a]) }
-    clause('array_dimensions') { |a| Expression.new } # TODO
+    clause('LPAR arguments RPAR') { |_, a, _| ArgumentList.new(a) }
+    clause('array_dimensions') { |a| ArrayDimensions.new(a) } # TODO
   end
 
   production(:arguments) do
-    clause('expr more_arguments') { |e, m| e + m }
+    clause('expr more_arguments') { |e, m| [e] + m }
     nullable
   end
 
   production(:more_arguments) do
-    clause('COMMA expr more_arguments') { |_, e, m| e + m }
+    clause('COMMA expr more_arguments') { |_, e, m| [e] + m }
     nullable
   end
 

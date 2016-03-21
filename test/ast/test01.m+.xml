@@ -1,0 +1,22 @@
+String not in language.  Token info:
+	Seen: []
+	Current: ADD
+	Remaining: [ADD()[line 1, col 1]
+, SUB()[line 1, col 2]
+, SUB()[line 1, col 3]
+, MUL()[line 1, col 4]
+, MUL()[line 1, col 5]
+, ADD()[line 1, col 6]
+, ADD()[line 1, col 7]
+, SUB()[line 1, col 8]
+, SUB()[line 1, col 9]
+, MUL()[line 1, col 10]
+, MUL()[line 1, col 11]
+, ADD()[line 1, col 12]
+, ADD()[line 1, col 13]
+, SUB()[line 1, col 14]
+, SUB()[line 1, col 15]
+, MUL()[line 1, col 16]
+, MUL()[line 1, col 17]
+, EOS()
+]

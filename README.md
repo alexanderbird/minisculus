@@ -13,4 +13,5 @@ Pipe the output of `./compile -m ast infile.m+` to anything.xml
 
 And view the xml file in a web browser or other xml renderrer. Note that error output is not rendered as xml, so attempt compiling, check for error messages, and then rerun while piping to file once you have confirmed that the infile can be parsed successfully. 
 
-
+## Helpful Oneliners
+* Generate AST for all test files: `for file in test/src/*.m+; do ./compile $file --mode ast > test/ast/$(basename $file).xml 2>&1; done`

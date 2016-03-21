@@ -1,0 +1,1 @@
+<ast><Variable values='foo, 0'><Real></Real></Variable><Variable values='bar, 0'><IntegerType></IntegerType></Variable><Variable values='baz, 0'><Boolean></Boolean></Variable></ast>
