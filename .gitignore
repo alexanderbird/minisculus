@@ -6,3 +6,6 @@ Session.vim
 # temporary
 .netrwhist
 *~
+
+# compiler temporary files
+*.tbl

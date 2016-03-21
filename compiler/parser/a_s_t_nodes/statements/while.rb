@@ -1,4 +1,4 @@
 class While < Statement
-  child :expression, Expression
+  child :loop_condition, Expression
   child :statement, Statement
 end

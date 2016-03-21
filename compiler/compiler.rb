@@ -18,19 +18,22 @@ module Compiler
     all_tokens = tokens.clone
     #grammar = MinisculusGrammar.new
     #ast = grammar.starting_production(tokens).execute
+    ast = MinisculusPlusParser.new.parse tokens
     
     return if options[:silent]
     case options[:mode]
     when :parse
       puts all_tokens.to_a.join("\n")
     when :ast
-      puts ast.visualize
+      puts "<ast>#{ast.join()}</ast>"
     when :compile
       puts "TODO: output stack code"
     end
-  rescue Exception => e
-    raise e
-  rescue RLTK::LexingError => e
+  rescue RLTK::NotInLanguage => e
+    print "#{e}\n"
+  rescue RLTK::BadToken => e
+    print "#{e}\n"
+  rescue RLTK::LexingError => e 
     if options[:verbose]
       raise e
     else

@@ -1,5 +1,7 @@
 class FunctionDeclaration < Declaration
   value :name, String
-  child :expressions, [Expression]
-  child :type, Type
+  child :parameters, [Parameter]
+  child :return_type, Type
+  child :declarations, [Declaration]
+  child :function_body, [Statement]
 end

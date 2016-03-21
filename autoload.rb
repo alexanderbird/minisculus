@@ -1,5 +1,8 @@
 require 'rubyvis'
 require 'rltk'
+require 'rltk/lexer'
+require 'rltk/ast'
+require 'rltk/parser'
 
 autoload :Compiler, "./compiler/compiler.rb"
 
@@ -30,6 +33,15 @@ Dir.glob("compiler/**/*.rb").each do |file|
     scope.autoload klass, "./#{file}"
   else
     autoload klass, "./#{file}"
+  end
+end
+
+class RLTK::Token
+  def inspect
+    val = @type.to_s
+    val += "(#{@value})"
+    val += "[line #{@position.line_number}, col #{@position.line_offset}]" if @position
+    return val + "\n"
   end
 end
 

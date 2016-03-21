@@ -1,0 +1,2 @@
+class IntegerType < Type
+end

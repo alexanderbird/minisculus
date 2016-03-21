@@ -3,18 +3,21 @@ var second:int;
 
 fun add_two(left:int, right:int):int {
   var result:int;
-
+  
   begin
   result := left + right;
   return result;
   end
-}
+};
+
+var sum:int;
 
 begin
 
 first := read
 second := read
+sum := add_two(first, second);
 
-print add_two(first, second);
+print sum;
 
 end

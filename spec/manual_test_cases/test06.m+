@@ -1,0 +1,4 @@
+var foo:int;
+begin
+foo := 4;
+end

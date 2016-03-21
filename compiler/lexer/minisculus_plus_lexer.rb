@@ -38,7 +38,7 @@ class MinisculusPlusLexer < RLTK::Lexer
   rule(/\]/)                      { :SRPAR }
 
   rule(/:/)                       { :COLON }
-  rule(/;/)                       { :SEMICLON }
+  rule(/;/)                       { :SEMICOLON }
   rule(/,/)                       { :COMMA } 
 
   # Flow control
