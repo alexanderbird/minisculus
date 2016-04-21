@@ -10,7 +10,7 @@ class LeafNodeForTest < Node
   value :value, Symbol
 end
 
-class Visitor
+class VisitorForTest
   attr_reader :visited
 
   def initialize
@@ -24,7 +24,7 @@ end
 
 describe Node do
   context "#traverse_depth_first" do
-    let(:visitor) { Visitor.new }
+    let(:visitor) { VisitorForTest.new }
 
     it "visits each child" do
       nephew = LeafNodeForTest.new(:nephew)
@@ -82,9 +82,9 @@ describe Node do
       order = [:mother, :father, :nephew, :root]
 
       visitors = [
-        Visitor.new,
-        Visitor.new,
-        Visitor.new
+        VisitorForTest.new,
+        VisitorForTest.new,
+        VisitorForTest.new
       ]
 
       root.traverse_depth_first(visitors)

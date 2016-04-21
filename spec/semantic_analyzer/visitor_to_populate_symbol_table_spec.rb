@@ -1,15 +1,6 @@
 require 'spec_helper'
 
 describe VisitorToPopulateSymbolTable do
-  context "#initialize" do
-    it "must have a SymbolTable as the argument" do
-      not_right = double("NotASymbolTable")
-      allow(not_right).to receive(:kind_of?).with(SymbolTable).and_return(false)
-      allow(not_right).to receive(:class).and_return("WrongClassName")
-      expect{VisitorToPopulateSymbolTable.new(not_right)}.to raise_error ArgumentError, /expected a kind of SymbolTable, got WrongClassName/i
-    end
-  end
-
   context "#visit" do
     let(:symbol_table) { SymbolTable.new }
     let(:visitor) { VisitorToPopulateSymbolTable.new(symbol_table) }

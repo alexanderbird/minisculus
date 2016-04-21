@@ -1,9 +1,4 @@
-class VisitorToPopulateSymbolTable
-  def initialize symbol_table
-    raise ArgumentError, "Expected a kind of SymbolTable, got #{symbol_table.class}" unless symbol_table.kind_of?(SymbolTable)
-    @symbol_table = symbol_table
-  end
-
+class VisitorToPopulateSymbolTable < BaseVisitor
   def visit token
     symbol = SemanticAnalysisSymbol.new
     do_nothing = false
