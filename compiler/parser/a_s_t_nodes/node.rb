@@ -1,4 +1,29 @@
 class Node < RLTK::ASTNode
+
+  def traverse_depth_first visitors
+    # visit each child
+    self.children.each do |child|
+      # if it's a collection, visit each
+      if child.kind_of? Array # yeah, I really do mean "kind_of?" not "respond_to?"... if Node#to_a is defined, I still don't want this expression to evaluate to true
+        child.each do |grandchild|
+          grandchild.traverse_depth_first visitors
+        end
+      # otherwise visit the only child
+      else
+        child.traverse_depth_first visitors
+      end
+    end
+    # accept both singular visitor and sets of visitors
+    if visitors.respond_to?(:to_a)
+      visitors = visitors.to_a
+    else
+      visitors = [visitors]
+    end
+    visitors.each do |visitor|
+      visitor.visit self
+    end
+  end
+
   def to_s
     all_children = self.values + self.children
     children_list = []
