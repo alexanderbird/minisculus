@@ -1,0 +1,21 @@
+var foo:int;
+
+begin 
+{
+  var foo:bool;
+  begin
+  {
+    var baz:int;
+    begin
+      foo := false;
+      baz := 5;
+    end
+  };
+  {
+    begin
+      baz := false; /* this assignment is the first line that should error */
+    end
+  };
+  end
+};
+end
