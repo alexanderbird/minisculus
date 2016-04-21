@@ -1,0 +1,2 @@
+class MinisculusTypeError < Exception
+end

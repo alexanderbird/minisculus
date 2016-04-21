@@ -1,6 +1,15 @@
 class Node < RLTK::ASTNode
 
   def traverse_depth_first visitors
+    if visitors.respond_to?(:to_a)
+      visitors = visitors.to_a
+    else
+      visitors = [visitors]
+    end
+    # pre-visit
+    visitors.each do |visitor|
+      visitor.pre_visit self
+    end
     # visit each child
     self.children.each do |child|
       # if it's a collection, visit each
@@ -14,11 +23,6 @@ class Node < RLTK::ASTNode
       end
     end
     # accept both singular visitor and sets of visitors
-    if visitors.respond_to?(:to_a)
-      visitors = visitors.to_a
-    else
-      visitors = [visitors]
-    end
     visitors.each do |visitor|
       visitor.visit self
     end

@@ -20,6 +20,15 @@ class VisitorForTest
   def visit object
     @visited << object.value
   end
+
+  def pre_visit object
+  end
+end
+
+class VisitorForTestWithPreVisit < VisitorForTest
+  def pre_visit object
+    @visited << "pre_#{object.value.to_s}".to_sym
+  end
 end
 
 describe Node do
@@ -69,6 +78,21 @@ describe Node do
         :nephew,
         :root
       ]
+
+      expect(visitor.visited).to eq order
+    end
+
+    it "pre-visits each" do
+      nephew = LeafNodeForTest.new(:nephew)
+      mother = LeafNodeForTest.new(:mother)
+      father = LeafNodeForTest.new(:father)
+      root = NodeForTest.new(:root, [mother, father], nephew)
+
+      order = [:pre_root, :pre_mother, :mother, :pre_father, :father, :pre_nephew, :nephew, :root]
+
+      visitor = VisitorForTestWithPreVisit.new
+
+      root.traverse_depth_first(visitor)
 
       expect(visitor.visited).to eq order
     end

@@ -70,9 +70,9 @@ class MinisculusPlusLexer < RLTK::Lexer
   rule(/return/)                  { :RETURN }
 
   # Literals
+  rule(/false/)                   { [:BVAL, false] } 
+  rule(/true/)                    { [:BVAL, true] }
   rule(/[a-zA-Z][_a-zA-Z0-9]*/)   { |id| [:ID, id] }
   rule(/[0-9]+/)                  { |int| [:IVAL, int.to_i] }
   rule(/[0-9]*\.[0-9]+/)          { |real| [:RVAL, real.to_f] }
-  rule(/false/)                   { [:BVAL, false] } 
-  rule(/true/)                    { [:BVAL, true] }
 end

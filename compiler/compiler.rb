@@ -15,15 +15,20 @@ module Compiler
     end
    
     tokens = []
-    if [:lex, :ast, :compile].include? options[:mode]
+    if [:lex, :ast, :type, :compile].include? options[:mode]
       Timeout::timeout(3) do
         tokens = MinisculusPlusLexer.new.lex code
       end
       all_tokens = tokens.clone
     end
 
-    if [:ast, :compile].include? options[:mode]
+    if [:ast, :type, :compile].include? options[:mode]
       ast = MinisculusPlusParser.new.parse tokens
+    end
+
+    if [:type, :compile].include? options[:mode]
+      symbol_table = SymbolTable.new
+      ast.traverse_depth_first [VisitorToPopulateSymbolTable.new(symbol_table), SemanticAnalysisVisitor.new(symbol_table)]
     end
 
     if [:compile].include? options[:mode]

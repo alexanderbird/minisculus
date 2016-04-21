@@ -1,0 +1,5 @@
+var foo:int;
+
+begin
+  foo := false;
+end

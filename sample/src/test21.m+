@@ -1,0 +1,5 @@
+var foo:bool;
+
+begin
+  foo := false;
+end

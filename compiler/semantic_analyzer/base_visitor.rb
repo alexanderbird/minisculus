@@ -7,4 +7,7 @@ class BaseVisitor
   def visit token
     raise NotImplementedError
   end
+
+  def pre_visit token
+  end
 end
